@@ -41,11 +41,11 @@ jobs:
           package_version="$(node -p 'require("./package.json").version')"
           test "$tag_version" = "$package_version"
 
-      - name: Run tests
-        run: pnpm test
-
       - name: Type-check
         run: pnpm typecheck
+
+      - name: Run tests
+        run: pnpm test
 
       - name: Build release assets
         run: pnpm release
