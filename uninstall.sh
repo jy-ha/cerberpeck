@@ -10,6 +10,10 @@ if ! command -v curl >/dev/null 2>&1; then
   echo "cerberpeck: curl is required" >&2
   exit 3
 fi
+if [ "$#" -ne 0 ]; then
+  echo "cerberpeck: the complete uninstaller does not accept options" >&2
+  exit 2
+fi
 
 curl -fsSL "$BASE_URL/install.sh" -o "$TEMP_ROOT/install.sh"
-sh "$TEMP_ROOT/install.sh" uninstall --purge --yes "$@"
+CERBERPECK_UNINSTALL_ALL_SCOPES=1 sh "$TEMP_ROOT/install.sh" uninstall --purge --yes

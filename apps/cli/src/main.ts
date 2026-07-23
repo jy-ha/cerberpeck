@@ -46,7 +46,7 @@ import {
 import {RunProgressRenderer} from "./tui/run.js";
 import {promptUninstallOptions} from "./tui/uninstall.js";
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 interface GlobalOptions {
   workspace: string;

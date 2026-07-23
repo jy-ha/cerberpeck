@@ -79,5 +79,13 @@ if [ "$COMMAND" = install ]; then
       --assets-dir "$TEMP_ROOT/cerberpeck/skills" "$@"
   fi
 else
+  if [ "${CERBERPECK_UNINSTALL_ALL_SCOPES:-0}" = 1 ]; then
+    UNINSTALL_STATUS=0
+    node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" uninstall \
+      --scope workspace "$@" || UNINSTALL_STATUS=$?
+    node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" uninstall \
+      --scope global "$@" || UNINSTALL_STATUS=$?
+    exit "$UNINSTALL_STATUS"
+  fi
   node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" uninstall "$@"
 fi

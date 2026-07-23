@@ -413,3 +413,30 @@
 - `/tmp/cerberpeck-v011-nontty.z48bF5`에서 비TTY 원라인 자동 설치, ANSI·선택 화면 부재와 완전 제거 확인
 - `v0.1.1` Release workflow와 네 플랫폼 archive를 포함한 8개 공개 자산 게시 완료
 - `/tmp/cerberpeck-v011-public.ypCIjb`에서 공개 `latest/download` 원라인 선택 TUI, `0.1.1` 설치와 공개 완전 제거 검증 통과
+
+## 범위 11 — 단일 Workspace·Global 완전 제거와 v0.1.2
+
+상태: 완료
+
+재분석 대상:
+
+- 공개 `uninstall.sh`, release bootstrap의 제거 dispatch와 installer purge fallback
+- Workspace·Global target, 매니페스트 누락·수정 파일 제거와 PATH 소유 block 정리
+- README와 PRD의 중복 scope별 원라인 제거 안내
+
+이번 범위 원칙:
+
+- 설치된 CLI의 일반·부분 제거는 기존 scope별 안전 정책을 유지한다.
+- 공개 완전 제거는 옵션 없는 명령 하나로 현재 Workspace와 사용자 Global 설치를 모두 purge한다.
+- 한 scope 제거 실패가 다른 scope 제거를 막지 않되, 하나라도 실패하면 최종 명령은 실패한다.
+- 다른 프로젝트의 Workspace를 파일시스템에서 추측하거나 탐색하지 않는다.
+- 공개된 `v0.1.1`은 변경하지 않고 patch release `v0.1.2`로 배포한다.
+
+완료 기록:
+
+- 공개 `uninstall.sh`의 scope 인자를 제거하고 옵션 없는 단일 완전 제거 명령으로 단순화
+- portable bundle을 한 번만 내려받아 현재 Workspace와 사용자 Global purge를 연속 실행
+- 한 scope 실패 후에도 다른 scope를 시도하고 하나라도 실패하면 최종 실패하는 dispatch 구현
+- README의 Global 전용 두 번째 명령을 제거하고 PRD의 공개 제거 계약을 all-scopes로 통일
+- 전체 38개 테스트, typecheck, shell syntax와 release build 통과
+- `/tmp/cerberpeck-v012-all-uninstall.JPCzXn`의 격리 HOME·XDG에서 Workspace+Global 동시 설치 후 단일 원라인 완전 제거 검증 통과

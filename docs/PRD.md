@@ -1155,7 +1155,7 @@ cerberpeck install
 {
   "schema_version": 1,
   "installation_id": "cpi_01J...",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scope": "workspace",
   "workspace": "/path/to/project",
   "hosts": ["codex", "claude"],
@@ -1222,11 +1222,7 @@ cerberpeck uninstall                     # Global
 curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh
 ```
 
-Global 완전 제거:
-
-```sh
-curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
-```
+공개 원라인 제거는 별도 scope 인자를 받지 않는다. 실행한 현재 workspace의 Workspace 설치와 사용자 Global 설치를 모두 완전 제거한다. 다른 프로젝트의 Workspace 설치는 경로를 추측해 탐색하지 않는다.
 
 ### 15.2 제거 TUI
 
@@ -1246,9 +1242,9 @@ curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstal
 cerberpeck uninstall --purge
 ```
 
-`--purge`는 선택한 설치 범위의 전체 제거를 의미한다. Workspace에서는 두 호스트 Skill, CLI, 설치 매니페스트, `.cerberpeck` 아래의 세션·캡처·보고서·후보 worktree·캐시·브라우저·백업과 `cerberpeck.toml`을 삭제한다. Global에서는 두 호스트 Skill, CLI, 전용 data directory와 Cerberpeck이 추가한 PATH block을 삭제한다. 수정된 Cerberpeck Skill 파일도 전용 디렉터리와 함께 제거하지만 프로젝트의 제품 코드는 변경하지 않는다.
+CLI의 `--purge`는 선택한 설치 범위의 전체 제거를 의미한다. Workspace에서는 두 호스트 Skill, CLI, 설치 매니페스트, `.cerberpeck` 아래의 세션·캡처·보고서·후보 worktree·캐시·브라우저·백업과 `cerberpeck.toml`을 삭제한다. Global에서는 두 호스트 Skill, CLI, 전용 data directory와 Cerberpeck이 추가한 PATH block을 삭제한다. 수정된 Cerberpeck Skill 파일도 전용 디렉터리와 함께 제거하지만 프로젝트의 제품 코드는 변경하지 않는다.
 
-삭제 전에 실행 중인 Cerberpeck Agent 프로세스를 종료하고, Cerberpeck이 만든 Git worktree는 `git worktree remove`로 등록 정보까지 정리한다. `--purge`는 undo·redo 기록도 없애는 비가역 작업이므로 TUI에서만 한 번 확인하고, 비대화형에서는 `--purge --yes`를 모두 요구한다. 공개 `uninstall.sh`는 완전 제거 전용으로 두 플래그를 전달한다.
+삭제 전에 실행 중인 Cerberpeck Agent 프로세스를 종료하고, Cerberpeck이 만든 Git worktree는 `git worktree remove`로 등록 정보까지 정리한다. `--purge`는 undo·redo 기록도 없애는 비가역 작업이므로 TUI에서만 한 번 확인하고, 비대화형에서는 `--purge --yes`를 모두 요구한다. 공개 `uninstall.sh`는 완전 제거 전용으로 두 플래그를 전달해 Workspace와 Global purge를 모두 시도한다. 한 범위가 실패해도 다른 범위 제거를 계속하고 최종 실패 코드를 반환한다.
 
 ### 15.3 부분 제거
 
@@ -1791,7 +1787,7 @@ MCP 도입 조건:
 결과는 `ok`, `warning`, `error`로 구분하고 각 문제에 실행 가능한 해결 명령을 제공한다.
 
 ```text
-✓ Cerberpeck 0.1.1
+✓ Cerberpeck 0.1.2
 ✓ Workspace installation: /work/example
 ✓ Codex skill: .agents/skills/cerberpeck
 ✓ Claude skill: .claude/skills/cerberpeck
@@ -1927,6 +1923,7 @@ MCP 도입 조건:
 ### IR-006 제거
 
 - 설치된 CLI와 원라인 부트스트랩 모두 제거를 시작할 수 있다.
+- 공개 원라인 제거 한 번으로 현재 Workspace와 Global 설치를 모두 완전 제거한다.
 - host별 부분 제거를 지원한다.
 - 세션 데이터는 기본 보존한다.
 - `--purge`에서만 세션 데이터와 백업을 제거한다.

@@ -117,19 +117,13 @@ In CI or another environment without a terminal, the same command installs the d
 
 ### Complete uninstall
 
-Remove every Cerberpeck component from the current project with one command:
+Remove every Cerberpeck component from the current project and your Global installation with one command:
 
 ```sh
 curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh
 ```
 
-For a Global installation, specify the scope:
-
-```sh
-curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
-```
-
-Complete uninstall removes the Codex and Claude skills, CLI, installation manifest, sessions, captures, reports, candidate worktrees, caches, backups, configuration, and any PATH entry created by a Global installation. This is irreversible. If you also want to revert changes that Cerberpeck applied to your product, ask the skill to undo them before uninstalling. The uninstaller never rewrites your product code by itself.
+Complete uninstall always removes both scopes: the current project's Codex and Claude skills, CLI, sessions, captures, reports, candidate worktrees, caches, backups, and configuration, plus the user-level skills, CLI, data, and any PATH entry created by a Global installation. This is irreversible. If you also want to revert changes that Cerberpeck applied to your product, ask the skill to undo them before uninstalling. The uninstaller never rewrites your product code by itself.
 
 ---
 
