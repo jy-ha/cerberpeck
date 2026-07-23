@@ -349,7 +349,7 @@
 
 ## 범위 9 — CI와 태그 기반 자동 릴리스
 
-상태: 진행 중
+상태: 완료
 
 재분석 대상:
 
@@ -371,3 +371,13 @@
 - tag 기반 Release workflow
 - 네 플랫폼 archive, checksum, manifest, install·uninstall script 자동 업로드
 - `v0.1.0` 실제 Release와 공개 원라인 설치 검증
+
+완료 기록:
+
+- `main`·PR에서 typecheck, 전체 34개 테스트와 build를 수행하는 CI 추가
+- package tag와 version 일치 검증 후 Release를 생성하는 `v*` tag workflow 추가
+- GitHub Actions를 Node 24 기반 `checkout@v6`·`setup-node@v6`로 구성
+- 제품 최소 런타임, installer gate, esbuild target과 release manifest를 Node.js 24 LTS로 통일
+- GitHub runner CI와 Release workflow 모두 통과
+- `v0.1.0` 정식 Release 및 네 플랫폼 archive, checksum, manifest, install·uninstall script 8개 자산 게시
+- `/tmp/cerberpeck-public-install.9AIMEM`에서 공개 `releases/latest/download` URL로 실제 한 줄 설치, doctor와 완전 제거 검증 통과

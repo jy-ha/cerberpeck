@@ -101,7 +101,7 @@ Cerberpeck currently focuses on web-service development. It does not automatical
 
 ## Install
 
-The following command installs the CLI and both Codex and Claude Code skills into the current project on macOS, Linux, or WSL2. Workspace installation is the default, and the progress TUI completes without requiring input.
+The following command installs the CLI and both Codex and Claude Code skills into the current project on macOS, Linux, or WSL2. Node.js 24 LTS or newer is required. Workspace installation is the default, and the progress TUI completes without requiring input.
 
 ```sh
 curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/install.sh | sh
