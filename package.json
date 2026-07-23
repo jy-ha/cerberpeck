@@ -1,0 +1,28 @@
+{
+  "name": "cerberpeck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.30.2",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm build:skills && tsc -b && pnpm build:bundle",
+    "build:skills": "tsx scripts/build-skills.ts",
+    "build:bundle": "tsx scripts/build-cli.ts",
+    "release": "pnpm build && tsx scripts/build-release.ts",
+    "clean": "tsc -b --clean",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsx apps/cli/src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

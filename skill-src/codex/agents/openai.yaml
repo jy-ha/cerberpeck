@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cerberpeck"
+  short_description: "Iteratively build, evaluate, and keep better web versions"
+  default_prompt: "Use $cerberpeck to improve this web service through independent evaluation rounds."

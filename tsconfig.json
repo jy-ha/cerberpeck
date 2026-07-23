@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    {"path": "packages/core"},
+    {"path": "packages/installer"},
+    {"path": "packages/runtime"},
+    {"path": "packages/skill-builder"},
+    {"path": "apps/cli"}
+  ]
+}

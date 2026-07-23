@@ -1,0 +1,15 @@
+{
+  "name": "@cerberpeck/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "cerberpeck": "./dist/main.js"
+  },
+  "dependencies": {
+    "@cerberpeck/core": "workspace:*",
+    "@cerberpeck/installer": "workspace:*",
+    "@cerberpeck/runtime": "workspace:*",
+    "commander": "^14.0.0"
+  }
+}
