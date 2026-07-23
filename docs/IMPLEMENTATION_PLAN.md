@@ -411,3 +411,5 @@
 - 전체 38개 테스트, typecheck, release build와 두 Skill validator 통과
 - `/tmp/cerberpeck-v011-e2e.owCaUl`에서 로컬 release 원라인 설치 선택 TUI와 Enter 설치, 두 Skill 및 `0.1.1` 확인
 - `/tmp/cerberpeck-v011-nontty.z48bF5`에서 비TTY 원라인 자동 설치, ANSI·선택 화면 부재와 완전 제거 확인
+- `v0.1.1` Release workflow와 네 플랫폼 archive를 포함한 8개 공개 자산 게시 완료
+- `/tmp/cerberpeck-v011-public.ypCIjb`에서 공개 `latest/download` 원라인 선택 TUI, `0.1.1` 설치와 공개 완전 제거 검증 통과
