@@ -20,12 +20,12 @@ For every other request, write the user's complete request to a temporary UTF-8 
 
 ```sh
 if [ -x ./.cerberpeck/bin/cerberpeck ]; then
-  ./.cerberpeck/bin/cerberpeck run --host claude --request-file <path>
+  CERBERPECK_HOSTED=1 ./.cerberpeck/bin/cerberpeck run --host claude --request-file <path>
 else
-  cerberpeck run --host claude --request-file <path>
+  CERBERPECK_HOSTED=1 cerberpeck run --host claude --request-file <path>
 fi
 ```
 
-Relay only blocking questions and the final result. Let the CLI own workflow order, retries, evaluators, promotion, application, and restoration records. Never reproduce those workflows inside the host conversation.
+Run the CLI without requesting or emulating a PTY. In a host conversation it emits line-mode progress and never waits for TUI input. Keep streamed progress available, relay only genuine blocking questions, and summarize the final result. Let the CLI own workflow order, retries, evaluators, promotion, application, and restoration records. Never reproduce those workflows inside the host conversation.
 
 Read [workflow.md](references/workflow.md) when starting or resuming a run. Read the other references only when the CLI returns the matching blocking action.

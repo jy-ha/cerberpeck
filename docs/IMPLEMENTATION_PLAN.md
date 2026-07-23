@@ -89,10 +89,10 @@
 - `/tmp/cerberpeck-scope2-e2e.uiQf9w`에서 Workspace·Global 설치/doctor/부분 제거/전체 제거 확인
 - `/tmp/cerberpeck-tui-e2e.oVLOXL` PTY에서 `--interactive` Enter 설치 확인
 
-목표:
+초기 목표(범위 10에서 설치 진입 UX 수정):
 
-- 확인을 기다리지 않는 Workspace 기본 설치
-- `--interactive`에서만 선택을 바꾸는 직접 구현 TUI
+- 비TTY에서 확인을 기다리지 않는 Workspace 기본 설치
+- 선택을 바꾸는 직접 구현 TUI
 - Codex·Claude Skill bundle 생성과 Workspace/Global 설치
 - 매니페스트 기반 update·uninstall
 
@@ -381,3 +381,33 @@
 - GitHub runner CI와 Release workflow 모두 통과
 - `v0.1.0` 정식 Release 및 네 플랫폼 archive, checksum, manifest, install·uninstall script 8개 자산 게시
 - `/tmp/cerberpeck-public-install.9AIMEM`에서 공개 `releases/latest/download` URL로 실제 한 줄 설치, doctor와 완전 제거 검증 통과
+
+## 범위 10 — 실행 환경별 TUI 계약과 v0.1.1
+
+상태: 완료
+
+재분석 대상:
+
+- PRD의 자율 실행, 원라인 bootstrap, 설치 TUI와 비대화형 설치 계약
+- `install.sh`의 `curl | sh` stdin, CLI의 TTY 감지와 설치 옵션 reducer
+- Codex·Claude Skill launcher와 실행 진행 renderer
+- README 설치 후 사용자 여정과 공개 릴리스 자동화
+
+이번 범위 원칙:
+
+- 인자 없는 원라인 설치를 실제 터미널에서 실행하면 `/dev/tty`로 한 화면 선택 TUI를 열고, 비TTY에서는 기본값으로 계속한다.
+- 설치 선택을 명시했거나 `--yes`를 사용하면 확인을 요구하지 않는다.
+- Codex·Claude Code 안에서는 PTY 유무와 관계없이 line-mode를 사용하고, 사용자가 CLI를 직접 실행할 때만 full-screen 진행 TUI를 사용한다.
+- 실제 동작이 없는 Escape 복원과 실행 제어 키 같은 계약은 제거하며 별도 TUI framework나 호스트별 실행기를 추가하지 않는다.
+- 공개된 `v0.1.0`은 변경하지 않고 patch release `v0.1.1`로 배포한다.
+
+완료 기록:
+
+- `curl | sh`의 소진된 stdin 대신 실제 터미널의 `/dev/tty`를 installer에 연결해 기본 선택 TUI 복원
+- 직접 CLI의 인자 없는 설치, `--yes`·명시 선택·`--json`·비TTY·update를 구분하는 순수 설치 진입 정책과 단위 테스트 추가
+- 설치 reducer의 동작 없는 Escape 분기와 색상을 사용하지 않으면서 `NO_COLOR`에 full-screen 출력을 결합하던 레거시 제거
+- `CERBERPECK_HOSTED=1` 계약으로 Codex·Claude Skill 실행의 line-mode를 보장하고 직접 터미널 TUI는 유지
+- README와 PRD에서 설치 선택 TUI, 호스트 내부 line-mode, 직접 실행 full-screen 진행 화면의 경계를 명시
+- 전체 38개 테스트, typecheck, release build와 두 Skill validator 통과
+- `/tmp/cerberpeck-v011-e2e.owCaUl`에서 로컬 release 원라인 설치 선택 TUI와 Enter 설치, 두 Skill 및 `0.1.1` 확인
+- `/tmp/cerberpeck-v011-nontty.z48bF5`에서 비TTY 원라인 자동 설치, ANSI·선택 화면 부재와 완전 제거 확인

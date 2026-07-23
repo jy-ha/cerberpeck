@@ -127,6 +127,10 @@ export function renderRunSummary(session: Session): string {
   return lines.join("\n");
 }
 
+export function shouldUseRunTui(stderrTty: boolean, hosted: boolean): boolean {
+  return stderrTty && !hosted;
+}
+
 export class RunProgressRenderer {
   private state: RunTuiState;
   private readonly interactive: boolean;
@@ -140,7 +144,8 @@ export class RunProgressRenderer {
     write?: (value: string) => void;
   }) {
     this.state = createRunTuiState(input);
-    this.interactive = input.interactive ?? process.stderr.isTTY;
+    this.interactive = input.interactive
+      ?? shouldUseRunTui(process.stderr.isTTY, process.env.CERBERPECK_HOSTED === "1");
     this.write = input.write ?? ((value) => process.stderr.write(value));
   }
 

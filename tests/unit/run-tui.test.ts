@@ -6,6 +6,7 @@ import {
   renderRunLine,
   renderRunTui,
   RunProgressRenderer,
+  shouldUseRunTui,
 } from "../../apps/cli/src/tui/run.js";
 
 function event(
@@ -23,6 +24,12 @@ function event(
 }
 
 describe("run progress TUI", () => {
+  it("uses full-screen output only in a direct terminal", () => {
+    expect(shouldUseRunTui(true, false)).toBe(true);
+    expect(shouldUseRunTui(true, true)).toBe(false);
+    expect(shouldUseRunTui(false, false)).toBe(false);
+  });
+
   it("reduces action events and derives the current round", () => {
     let state = createRunTuiState({sessionId: "cp_demo", maxRounds: 10});
     state = reduceRunTui(state, event("action.started"));

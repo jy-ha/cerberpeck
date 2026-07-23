@@ -2,6 +2,7 @@ import {describe, expect, it} from "vitest";
 import {
   reduceInstallTui,
   renderInstallOptions,
+  shouldPromptInstall,
   type InstallTuiState,
 } from "../../apps/cli/src/tui/install.js";
 import {
@@ -46,6 +47,39 @@ describe("install TUI reducer", () => {
   it("renders without relying on color", () => {
     expect(renderInstallOptions(state(), "/tmp/work")).toContain("[x] Codex");
     expect(renderInstallOptions(state(), "/tmp/work")).toContain("Workspace: /tmp/work");
+  });
+});
+
+describe("install TUI selection", () => {
+  const terminalInstall = {
+    command: "install" as const,
+    interactive: false,
+    yes: false,
+    json: false,
+    hasExplicitSelection: false,
+    stdinTty: true,
+    stdoutTty: true,
+  };
+
+  it("opens for an unconfigured install in a real terminal", () => {
+    expect(shouldPromptInstall(terminalInstall)).toBe(true);
+  });
+
+  it("stays touchless for explicit selections, --yes, JSON, updates, and non-TTY hosts", () => {
+    expect(shouldPromptInstall({...terminalInstall, hasExplicitSelection: true})).toBe(false);
+    expect(shouldPromptInstall({...terminalInstall, yes: true})).toBe(false);
+    expect(shouldPromptInstall({...terminalInstall, json: true})).toBe(false);
+    expect(shouldPromptInstall({...terminalInstall, command: "update"})).toBe(false);
+    expect(shouldPromptInstall({...terminalInstall, stdinTty: false})).toBe(false);
+  });
+
+  it("honors an explicit interactive request outside a terminal through line fallback", () => {
+    expect(shouldPromptInstall({
+      ...terminalInstall,
+      interactive: true,
+      stdinTty: false,
+      stdoutTty: false,
+    })).toBe(true);
   });
 });
 

@@ -56,9 +56,28 @@ if [ "${1:-}" = "uninstall" ]; then
   shift
 fi
 if [ "$COMMAND" = install ]; then
-  node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" install \
-    --cli-source "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" \
-    --assets-dir "$TEMP_ROOT/cerberpeck/skills" "$@"
+  USE_TTY=false
+  if [ "$#" -eq 0 ]; then
+    USE_TTY=true
+    set -- --interactive
+  else
+    for ARG in "$@"; do
+      if [ "$ARG" = "--interactive" ]; then
+        USE_TTY=true
+        break
+      fi
+    done
+  fi
+
+  if [ "$USE_TTY" = true ] && [ -t 1 ] && [ -r /dev/tty ] && [ -w /dev/tty ]; then
+    node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" install \
+      --cli-source "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" \
+      --assets-dir "$TEMP_ROOT/cerberpeck/skills" "$@" </dev/tty
+  else
+    node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" install \
+      --cli-source "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" \
+      --assets-dir "$TEMP_ROOT/cerberpeck/skills" "$@"
+  fi
 else
   node "$TEMP_ROOT/cerberpeck/cerberpeck.cjs" --workspace "$PWD" uninstall "$@"
 fi

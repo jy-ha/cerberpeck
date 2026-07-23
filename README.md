@@ -70,6 +70,12 @@ Every review runs in a fresh, independent session. Reviewers can inspect the cod
 
 Cerberpeck does not choose a winner by averaging scores. It weighs the evaluation goal, concrete evidence, regressions, and objective validation results before promoting a challenger.
 
+## Progress fits where you run it
+
+Inside Codex or Claude Code, Cerberpeck uses streamed line-by-line progress and returns the finished result in the same conversation. It does not open a child TUI or wait for terminal input.
+
+When you run Cerberpeck directly in a real terminal, the same session uses a full-screen progress view. The experiment itself remains touchless in both modes.
+
 ## Failed experiments do not damage your work
 
 - Every challenger is built outside the current workspace.
@@ -101,13 +107,13 @@ Cerberpeck currently focuses on web-service development. It does not automatical
 
 ## Install
 
-The following command installs the CLI and both Codex and Claude Code skills into the current project on macOS, Linux, or WSL2. Node.js 24 LTS or newer is required. Workspace installation is the default, and the progress TUI completes without requiring input.
+Run this command in a real terminal on macOS, Linux, or WSL2. Node.js 24 LTS or newer is required. It opens one installation screen with Workspace and the detected host or hosts selected by default; press Enter to install or change the selections first.
 
 ```sh
 curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/install.sh | sh
 ```
 
-Use the installation TUI only when you want to change the Workspace/Global scope or choose different hosts.
+In CI or another environment without a terminal, the same command installs the detected defaults without prompting.
 
 ### Complete uninstall
 

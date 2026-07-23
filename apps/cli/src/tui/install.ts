@@ -10,7 +10,17 @@ export interface InstallTuiState {
   cancelled: boolean;
 }
 
-export type InstallTuiKey = "up" | "down" | "space" | "enter" | "escape" | "quit";
+export type InstallTuiKey = "up" | "down" | "space" | "enter" | "quit";
+
+export interface InstallPromptContext {
+  command: "install" | "update";
+  interactive: boolean;
+  yes: boolean;
+  json: boolean;
+  hasExplicitSelection: boolean;
+  stdinTty: boolean;
+  stdoutTty: boolean;
+}
 
 const ROWS = 4;
 
@@ -23,9 +33,6 @@ export function reduceInstallTui(state: InstallTuiState, key: InstallTuiKey): In
   }
   if (key === "down") {
     return {...state, cursor: (state.cursor + 1) % ROWS};
-  }
-  if (key === "escape") {
-    return {...state, cursor: 0};
   }
   if (key === "quit") {
     return {...state, cancelled: true};
@@ -47,6 +54,20 @@ export function reduceInstallTui(state: InstallTuiState, key: InstallTuiKey): In
   }
   const modes: BrowserMode[] = ["system", "managed", "none"];
   return {...state, browser: modes[(modes.indexOf(state.browser) + 1) % modes.length]!};
+}
+
+export function shouldPromptInstall(context: InstallPromptContext): boolean {
+  if (context.json) {
+    return false;
+  }
+  if (context.interactive) {
+    return true;
+  }
+  return context.command === "install"
+    && !context.yes
+    && !context.hasExplicitSelection
+    && context.stdinTty
+    && context.stdoutTty;
 }
 
 export function renderInstallOptions(state: InstallTuiState, workspace: string): string {
@@ -102,7 +123,6 @@ function mapKey(key: readline.Key): InstallTuiKey | undefined {
   if (key.name === "down" || key.name === "j") return "down";
   if (key.name === "space") return "space";
   if (key.name === "return") return "enter";
-  if (key.name === "escape") return "escape";
   if (key.name === "q" || (key.ctrl === true && key.name === "c")) return "quit";
   return undefined;
 }
@@ -111,7 +131,7 @@ export class InstallProgressRenderer {
   private readonly events = new Map<InstallProgress["step"], InstallProgress>();
   private readonly interactive: boolean;
 
-  constructor(interactive = process.stderr.isTTY && process.env.NO_COLOR === undefined) {
+  constructor(interactive = process.stderr.isTTY) {
     this.interactive = interactive;
   }
 

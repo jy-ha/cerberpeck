@@ -38,11 +38,15 @@ import {
   WorkspaceDriver,
   WorkspaceError,
 } from "@cerberpeck/runtime";
-import {InstallProgressRenderer, promptInstallOptions} from "./tui/install.js";
+import {
+  InstallProgressRenderer,
+  promptInstallOptions,
+  shouldPromptInstall,
+} from "./tui/install.js";
 import {RunProgressRenderer} from "./tui/run.js";
 import {promptUninstallOptions} from "./tui/uninstall.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 interface GlobalOptions {
   workspace: string;
@@ -74,8 +78,8 @@ program
   .option("--scope <scope>", "workspace or global", parseScope)
   .option("--hosts <hosts>", "comma-separated codex,claude hosts", parseHosts)
   .option("--browser <mode>", "system, managed, or none", parseBrowser)
-  .option("--interactive", "change detected defaults in a terminal UI")
-  .option("--yes", "accepted for script compatibility")
+  .option("--interactive", "open the installation options TUI")
+  .option("--yes", "accept detected defaults without opening the options TUI")
   .option("--force", "backup and replace foreign target files")
   .option("--no-modify-path", "do not add the global bin directory to a shell profile")
   .option("--assets-dir <path>", "release skill bundle directory")
@@ -638,7 +642,18 @@ async function runInstall(options: InstallCommandOptions, command: "install" | "
   }));
   let browser = await detectBrowser(options.browser ?? previous?.browser.mode);
 
-  if (options.interactive === true) {
+  const hasExplicitSelection = options.scope !== undefined
+    || options.hosts !== undefined
+    || options.browser !== undefined;
+  if (shouldPromptInstall({
+    command,
+    interactive: options.interactive === true,
+    yes: options.yes === true,
+    json: globals.json === true,
+    hasExplicitSelection,
+    stdinTty: process.stdin.isTTY === true,
+    stdoutTty: process.stdout.isTTY === true,
+  })) {
     const selected = await promptInstallOptions(
       {scope, hosts, browser: browser.mode},
       workspace,
