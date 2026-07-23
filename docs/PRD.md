@@ -1208,13 +1208,13 @@ cerberpeck uninstall                     # Global
 원라인 제거:
 
 ```sh
-curl -fsSL https://github.com/blonix/cerberpeck/releases/latest/download/uninstall.sh | sh
+curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh
 ```
 
 Global 완전 제거:
 
 ```sh
-curl -fsSL https://github.com/blonix/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
+curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
 ```
 
 ### 15.2 제거 TUI

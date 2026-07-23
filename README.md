@@ -110,7 +110,7 @@ Cerberpeck currently focuses on web-service development. It does not automatical
 The following command installs the CLI and both Codex and Claude Code skills into the current project on macOS, Linux, or WSL2. Workspace installation is the default, and the progress TUI completes without requiring input.
 
 ```sh
-curl -fsSL https://github.com/blonix/cerberpeck/releases/latest/download/install.sh | sh
+curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/install.sh | sh
 ```
 
 Use the installation TUI only when you want to change the Workspace/Global scope or choose different hosts.
@@ -120,13 +120,13 @@ Use the installation TUI only when you want to change the Workspace/Global scope
 Remove every Cerberpeck component from the current project with one command:
 
 ```sh
-curl -fsSL https://github.com/blonix/cerberpeck/releases/latest/download/uninstall.sh | sh
+curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh
 ```
 
 For a Global installation, specify the scope:
 
 ```sh
-curl -fsSL https://github.com/blonix/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
+curl -fsSL https://github.com/jy-ha/cerberpeck/releases/latest/download/uninstall.sh | sh -s -- --scope global
 ```
 
 Complete uninstall removes the Codex and Claude skills, CLI, installation manifest, sessions, captures, reports, candidate worktrees, caches, backups, configuration, and any PATH entry created by a Global installation. This is irreversible. If you also want to revert changes that Cerberpeck applied to your product, ask the skill to undo them before uninstalling. The uninstaller never rewrites your product code by itself.

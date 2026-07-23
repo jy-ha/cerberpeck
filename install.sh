@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-BASE_URL="${CERBERPECK_RELEASE_BASE_URL:-https://github.com/blonix/cerberpeck/releases/latest/download}"
+BASE_URL="${CERBERPECK_RELEASE_BASE_URL:-https://github.com/jy-ha/cerberpeck/releases/latest/download}"
 TEMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/cerberpeck-install.XXXXXX")"
 cleanup() { rm -rf "$TEMP_ROOT"; }
 trap cleanup EXIT HUP INT TERM
