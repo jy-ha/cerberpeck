@@ -70,12 +70,6 @@ Every review runs in a fresh, independent session. Reviewers can inspect the cod
 
 Cerberpeck does not choose a winner by averaging scores. It weighs the evaluation goal, concrete evidence, regressions, and objective validation results before promoting a challenger.
 
-## The TUI watches; it does not interrupt
-
-A live progress TUI opens by default. It shows the current stage, reviewer progress, round, and final champion while the session continues without step-by-step approvals.
-
-You do not need to watch the terminal. Cerberpeck pauses only when it encounters something that cannot be handled safely, such as a destructive conflict or an external production change.
-
 ## Failed experiments do not damage your work
 
 - Every challenger is built outside the current workspace.
@@ -137,5 +131,3 @@ Complete uninstall removes the Codex and Claude skills, CLI, installation manife
   <strong>Cerberpeck</strong><br>
   Your current version is the champion—until a challenger proves otherwise.
 </p>
-
-See the [PRD](docs/PRD.md) and [implementation plan](docs/IMPLEMENTATION_PLAN.md) for the full protocol and architecture.
