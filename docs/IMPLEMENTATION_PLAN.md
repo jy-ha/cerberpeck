@@ -346,3 +346,28 @@
 - 수정되거나 설치 매니페스트가 유실·손상된 경우에도 알려진 제품 전용 경로 완전 제거
 - 전체 34개 테스트, typecheck, build와 네 플랫폼 release 생성 통과
 - `/tmp/cerberpeck-uninstall-e2e.BKwQIA`에서 release 설치, 실제 Git candidate worktree 생성, 수정된 Skill과 설정 추가 후 원라인 제거 검증; 제품 코드와 main worktree만 남음
+
+## 범위 9 — CI와 태그 기반 자동 릴리스
+
+상태: 진행 중
+
+재분석 대상:
+
+- 현재 package version, release builder와 생성 자산 목록
+- GitHub 기본 브랜치·태그·Release 상태와 Actions 권한
+- 공개 `releases/latest/download` 설치 URL
+
+이번 범위 원칙:
+
+- `main`과 PR에서는 검증만 수행하고 정식 Release를 만들지 않는다.
+- `v*` 태그가 package version과 일치할 때만 정식 Release를 생성한다.
+- Release 전에 테스트, typecheck와 전체 release build를 다시 수행한다.
+- GitHub 기본 token은 repository contents 쓰기 권한만 부여한다.
+- 재실행 시 기존 Release를 중복 생성하지 않고 동일 태그 자산만 갱신한다.
+
+이번 범위 포함:
+
+- main·PR CI workflow
+- tag 기반 Release workflow
+- 네 플랫폼 archive, checksum, manifest, install·uninstall script 자동 업로드
+- `v0.1.0` 실제 Release와 공개 원라인 설치 검증
