@@ -440,3 +440,5 @@
 - README의 Global 전용 두 번째 명령을 제거하고 PRD의 공개 제거 계약을 all-scopes로 통일
 - 전체 38개 테스트, typecheck, shell syntax와 release build 통과
 - `/tmp/cerberpeck-v012-all-uninstall.JPCzXn`의 격리 HOME·XDG에서 Workspace+Global 동시 설치 후 단일 원라인 완전 제거 검증 통과
+- `v0.1.2` Release workflow와 네 플랫폼 archive를 포함한 8개 공개 자산 게시 완료
+- `/tmp/cerberpeck-v012-public-uninstall.fLDVHZ`에서 공개 `latest`로 Workspace+Global 설치 후 단일 공개 uninstaller 완전 제거 검증 통과
