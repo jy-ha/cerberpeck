@@ -270,7 +270,7 @@
 
 알려진 v0.1 경계:
 
-- release artifact는 Bun native binary가 아니라 Node.js 20+ portable bundle이다.
+- release artifact는 Bun native binary가 아니라 Node.js 24 LTS+ portable bundle이다.
 - managed Chromium 다운로드는 아직 포함하지 않으며 system browser 또는 `--browser none`을 사용한다.
 - release signature/provenance와 macOS/arm64 실장비 검증은 CI·공개 release 인프라가 마련될 때 수행한다.
 

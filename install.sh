@@ -7,12 +7,12 @@ cleanup() { rm -rf "$TEMP_ROOT"; }
 trap cleanup EXIT HUP INT TERM
 
 if ! command -v node >/dev/null 2>&1; then
-  echo "cerberpeck: Node.js 20 or newer is required by this portable release" >&2
+  echo "cerberpeck: Node.js 24 or newer is required by this portable release" >&2
   exit 3
 fi
 NODE_MAJOR="$(node -p 'Number(process.versions.node.split(".")[0])')"
-if [ "$NODE_MAJOR" -lt 20 ]; then
-  echo "cerberpeck: Node.js 20 or newer is required" >&2
+if [ "$NODE_MAJOR" -lt 24 ]; then
+  echo "cerberpeck: Node.js 24 or newer is required" >&2
   exit 3
 fi
 if ! command -v curl >/dev/null 2>&1; then

@@ -8,7 +8,7 @@ await build({
   bundle: true,
   platform: "node",
   format: "cjs",
-  target: "node20",
+  target: "node24",
   sourcemap: true,
   // Playwright loads these only for WebDriver BiDi; Cerberpeck launches Chromium over CDP.
   external: [

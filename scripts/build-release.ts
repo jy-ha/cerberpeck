@@ -14,14 +14,14 @@ await mkdir(staging, {recursive: true});
 await cp(path.join(root, "dist", "cerberpeck.cjs"), path.join(staging, "cerberpeck.cjs"));
 await cp(path.join(root, "dist", "skills"), path.join(staging, "skills"), {recursive: true});
 
-const artifacts: Record<string, {file: string; sha256: string; runtime: "node20"}> = {};
+const artifacts: Record<string, {file: string; sha256: string; runtime: "node24"}> = {};
 const checksums: string[] = [];
 for (const platform of ["darwin-arm64", "darwin-x64", "linux-arm64", "linux-x64"]) {
   const file = `cerberpeck-${packageJson.version}-${platform}.tar.gz`;
   const target = path.join(releaseRoot, file);
   await run("tar", ["-czf", target, "-C", path.dirname(staging), path.basename(staging)]);
   const sha256 = createHash("sha256").update(await readFile(target)).digest("hex");
-  artifacts[platform] = {file, sha256, runtime: "node20"};
+  artifacts[platform] = {file, sha256, runtime: "node24"};
   checksums.push(`${sha256}  ${file}`);
 }
 await writeFile(path.join(releaseRoot, "release-manifest.json"), `${JSON.stringify({

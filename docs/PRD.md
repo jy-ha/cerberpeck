@@ -1524,7 +1524,7 @@ Session 생성 시 다음 버전을 고정한다.
 ### 19.1 권장 기술 선택
 
 - 언어: TypeScript
-- 런타임 개발 기준: Node.js 20 이상
+- 런타임 개발 기준: Node.js 24 LTS 이상
 - 패키지 매니저: pnpm
 - CLI parser: `commander` 또는 동급 라이브러리
 - TUI: 외부 framework 없이 `node:readline` + raw input + 최소 ANSI renderer 직접 구현
